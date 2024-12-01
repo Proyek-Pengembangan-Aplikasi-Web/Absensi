@@ -7,7 +7,7 @@
         <!-- Header -->
         <div class="d-flex justify-content-between align-items-center">
             <h1>Detail {{ $title }}</h1>
-            <a href="{{ route('absensi.index') }}" class="btn btn-secondary">Kembali</a>
+            <a href="{{ route('admin.absensi.index') }}" class="btn btn-secondary">Kembali</a>
         </div>
         <hr>
 

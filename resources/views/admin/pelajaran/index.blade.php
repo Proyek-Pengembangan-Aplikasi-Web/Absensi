@@ -10,24 +10,20 @@
             <thead class="thead-light">
                 <tr>
                     <th>No</th>
-                    <th>Nama User</th>
-                    <th>Username</th>
-                    <th>Email</th>
+                    <th>Pelajaran</th>
                     <th>Ditambahkan Pada</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse($user as $item)
+                @forelse($pelajaran as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->name }}</td>
-                        <td>{{ $item->username }}</td>
-                        <td>{{ $item->email }}</td>
                         <td>{{ $item->created_at }}</td>
                         <td>
-                            <a href="{{ route('users.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                            <form action="{{ route('users.destroy', $item->id) }}" method="POST" style="display:inline;">
+                            <a href="{{ route('admin.pelajaran.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <form action="{{ route('admin.pelajaran.destroy', $item->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin ingin menghapus?');">Hapus</button>
@@ -36,7 +32,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6">
+                        <td colspan="5">
                             <p class="text-center">Data Kosong</p>
                         </td>
                     </tr>

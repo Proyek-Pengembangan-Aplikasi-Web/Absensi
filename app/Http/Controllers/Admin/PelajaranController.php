@@ -1,19 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Absensi;
-use App\Models\Kelas;
+use App\Http\Controllers\Controller;
 use App\Models\Pelajaran;
-use App\Models\Siswa;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class AbsensiController extends Controller
+class PelajaranController extends Controller
 {
-    public $title = 'Absensi';
-    public $view = 'absensi.';
-    public $route = 'absensi.';
+    public $title = 'Pelajaran';
+    public $view = 'admin.pelajaran.';
+    public $route = 'admin.pelajaran.';
 
     /**
      * Display a listing of the resource.
@@ -21,7 +18,7 @@ class AbsensiController extends Controller
     public function index()
     {
         $data['title'] = $this->title;
-        $data['kelas'] = Kelas::get();
+        $data['pelajaran'] = Pelajaran::get();
         $data['route'] = route($this->route.'create');
 
         return view($this->view.'index', $data);
@@ -33,8 +30,6 @@ class AbsensiController extends Controller
     public function create()
     {
         $data['title'] = $this->title;
-        $data['siswa'] = Siswa::get();
-        $data['pelajaran'] = Pelajaran::get();
         $data['route'] = route($this->route.'store');
 
         return view($this->view.'.form', $data);
@@ -48,24 +43,12 @@ class AbsensiController extends Controller
         $data['title'] = $this->title;
 
         $validate = $request->validate([
-            'id_siswa' => 'required|exists:siswa,id',
-            'desc' => 'nullable',
-            'id_pelajaran' => 'required|exists:pelajaran,id',
-            'status' => 'required|in:hadir,alpa,izin,sakit',
+            'name' => 'required',
         ]);
 
-        $validate['date'] = Carbon::now();
-
-        Absensi::create($validate);
+        Pelajaran::create($validate);
 
         return redirect()->route($this->route.'index');
-    }
-
-    public function show(string $id) {
-        $data['title'] = $this->title;
-        $data['absensi'] = Absensi::find($id);
-
-        return view($this->view.'show', $data);
     }
 
     /**
@@ -74,9 +57,7 @@ class AbsensiController extends Controller
     public function edit(string $id)
     {
         $data['title'] = $this->title;
-        $data['siswa'] = Siswa::get();
-        $data['pelajaran'] = Pelajaran::get();
-        $data['model'] = Absensi::find($id);
+        $data['model'] = Pelajaran::find($id);
         $data['route'] = route($this->route.'update', $id);
 
         return view($this->view.'.form', $data);
@@ -89,15 +70,13 @@ class AbsensiController extends Controller
     {
         $data['title'] = $this->title;
 
-        $absensi = Absensi::find($id);
+        $pelajaran = Pelajaran::find($id);
 
         $validate = $request->validate([
-            'id_pelajaran' => 'required|exists:pelajaran,id',
-            'status' => 'required|in:hadir,alpa,izin,sakit',
-            'desc' => 'nullable',
+            'name' => 'required',
         ]);
 
-        $absensi->update($validate);
+        $pelajaran->update($validate);
 
         return redirect()->route($this->route.'index');
     }
@@ -107,9 +86,9 @@ class AbsensiController extends Controller
      */
     public function destroy(string $id)
     {
-        $absensi = Absensi::find($id);
+        $pelajaran = Pelajaran::find($id);
 
-        $absensi->delete();
+        $pelajaran->delete();
 
         return redirect()->back();
     }

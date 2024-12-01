@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\User;
+use App\Http\Controllers\Controller;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
-class UserController extends Controller
+class KelasController extends Controller
 {
-    public $title = 'User';
-    public $view = 'user.';
-    public $route = 'users.';
+    public $title = 'Kelas';
+    public $view = 'admin.kelas.';
+    public $route = 'admin.kelas.';
 
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         $data['title'] = $this->title;
-        $data['user'] = User::get();
+        $data['kelas'] = Kelas::get();
         $data['route'] = route($this->route.'create');
 
         return view($this->view.'index', $data);
@@ -43,14 +43,10 @@ class UserController extends Controller
         $data['title'] = $this->title;
 
         $validate = $request->validate([
-            'name' => 'required',
-            'username' => 'required',
-            'email' => 'required',
+            'kelas' => 'required',
         ]);
 
-        $validate['password'] = Hash::make('12345678');
-
-        User::create($validate);
+        Kelas::create($validate);
 
         return redirect()->route($this->route.'index');
     }
@@ -61,7 +57,7 @@ class UserController extends Controller
     public function edit(string $id)
     {
         $data['title'] = $this->title;
-        $data['model'] = User::find($id);
+        $data['model'] = Kelas::find($id);
         $data['route'] = route($this->route.'update', $id);
 
         return view($this->view.'.form', $data);
@@ -74,17 +70,13 @@ class UserController extends Controller
     {
         $data['title'] = $this->title;
 
-        $user = User::find($id);
+        $kelas = Kelas::find($id);
 
         $validate = $request->validate([
-            'name' => 'required',
-            'username' => 'required',
-            'email' => 'required',
+            'kelas' => 'required',
         ]);
 
-        $validate['password'] = Hash::make('12345678');
-
-        $user->update($validate);
+        $kelas->update($validate);
 
         return redirect()->route($this->route.'index');
     }
@@ -94,9 +86,9 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        $user = User::find($id);
+        $kelas = Kelas::find($id);
 
-        $user->delete();
+        $kelas->delete();
 
         return redirect()->back();
     }

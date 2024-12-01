@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Kelas;
-use App\Models\Siswa;
+use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
-class SiswaController extends Controller
+class UserController extends Controller
 {
-    public $title = 'Siswa';
-    public $view = 'siswa.';
-    public $route = 'siswa.';
+    public $title = 'User';
+    public $view = 'admin.user.';
+    public $route = 'admin.users.';
 
     /**
      * Display a listing of the resource.
@@ -18,7 +19,7 @@ class SiswaController extends Controller
     public function index()
     {
         $data['title'] = $this->title;
-        $data['siswa'] = Siswa::get();
+        $data['user'] = User::get();
         $data['route'] = route($this->route.'create');
 
         return view($this->view.'index', $data);
@@ -30,7 +31,6 @@ class SiswaController extends Controller
     public function create()
     {
         $data['title'] = $this->title;
-        $data['kelas'] = Kelas::get();
         $data['route'] = route($this->route.'store');
 
         return view($this->view.'.form', $data);
@@ -45,11 +45,13 @@ class SiswaController extends Controller
 
         $validate = $request->validate([
             'name' => 'required',
-            'nis' => 'required|numeric',
-            'id_kelas' => 'required|exists:kelas,id',
+            'username' => 'required',
+            'email' => 'required',
         ]);
 
-        Siswa::create($validate);
+        $validate['password'] = Hash::make('12345678');
+
+        User::create($validate);
 
         return redirect()->route($this->route.'index');
     }
@@ -60,8 +62,7 @@ class SiswaController extends Controller
     public function edit(string $id)
     {
         $data['title'] = $this->title;
-        $data['kelas'] = Kelas::get();
-        $data['model'] = Siswa::find($id);
+        $data['model'] = User::find($id);
         $data['route'] = route($this->route.'update', $id);
 
         return view($this->view.'.form', $data);
@@ -74,15 +75,17 @@ class SiswaController extends Controller
     {
         $data['title'] = $this->title;
 
-        $siswa = Siswa::find($id);
+        $user = User::find($id);
 
         $validate = $request->validate([
             'name' => 'required',
-            'nis' => 'required|numeric',
-            'id_kelas' => 'required|exists:kelas,id',
+            'username' => 'required',
+            'email' => 'required',
         ]);
 
-        $siswa->update($validate);
+        $validate['password'] = Hash::make('12345678');
+
+        $user->update($validate);
 
         return redirect()->route($this->route.'index');
     }
@@ -92,9 +95,9 @@ class SiswaController extends Controller
      */
     public function destroy(string $id)
     {
-        $siswa = Siswa::find($id);
+        $user = User::find($id);
 
-        $siswa->delete();
+        $user->delete();
 
         return redirect()->back();
     }

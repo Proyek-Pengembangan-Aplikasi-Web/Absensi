@@ -10,20 +10,22 @@
             <thead class="thead-light">
                 <tr>
                     <th>No</th>
+                    <th>Nama Siswa</th>
                     <th>Kelas</th>
                     <th>Ditambahkan Pada</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse($kelas as $item)
+                @forelse($siswa as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->kelas }}</td>
+                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->kelas->kelas ?? '-' }}</td>
                         <td>{{ $item->created_at }}</td>
                         <td>
-                            <a href="{{ route('kelas.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                            <form action="{{ route('kelas.destroy', $item->id) }}" method="POST" style="display:inline;">
+                            <a href="{{ route('admin.siswa.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <form action="{{ route('admin.siswa.destroy', $item->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin ingin menghapus?');">Hapus</button>
