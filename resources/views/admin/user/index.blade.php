@@ -13,6 +13,7 @@
                     <th>Nama User</th>
                     <th>Username</th>
                     <th>Email</th>
+                    <th>Role</th>
                     <th>Ditambahkan Pada</th>
                     <th>Aksi</th>
                 </tr>
@@ -24,6 +25,7 @@
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->username }}</td>
                         <td>{{ $item->email }}</td>
+                        <td>{{ $item->role }}</td>
                         <td>{{ $item->created_at }}</td>
                         <td>
                             <a href="{{ route('admin.users.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>

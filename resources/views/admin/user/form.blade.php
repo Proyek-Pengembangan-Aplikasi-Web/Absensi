@@ -22,7 +22,15 @@
 
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="e.g Udin" name="email" value="{{ isset($model) ? ($model->email ?? old('email')) : old('email') }}">
+                <input type="email" class="form-control" id="email" placeholder="e.g udin@gmail" name="email" value="{{ isset($model) ? ($model->email ?? old('email')) : old('email') }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="role" class="form-label">Role</label>
+                <select name="role" id="role" class="form-control">
+                    <option {{ isset($model) ? ($model->role == 'admin' ? 'selected' : '') : 'selected' }} value="admin">Admin</option>
+                    <option {{ isset($model) ? ($model->role == 'guru' ? 'selected' : '') : '' }} value="guru">Guru</option>
+                </select>
             </div>
 
             <!-- Tombol Submit -->

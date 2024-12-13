@@ -14,7 +14,7 @@
                     <div class="card text-bg-primary mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Murid</h5>
-                            <p class="card-text">1000</p>
+                            <p class="card-text">{{ $siswa }}</p>
                         </div>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                     <div class="card text-bg-success mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Kelas</h5>
-                            <p class="card-text">1000</p>
+                            <p class="card-text">{{ $kelas }}</p>
                         </div>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                     <div class="card text-bg-warning mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Guru</h5>
-                            <p class="card-text">1000</p>
+                            <p class="card-text">{{ $guru }}</p>
                         </div>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                     <div class="card text-bg-primary mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Jadwal Saya</h5>
-                            <p class="card-text">3</p>
+                            <p class="card-text">{{ $jadwal }}</p>
                         </div>
                     </div>
                 </div>
