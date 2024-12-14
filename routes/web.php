@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -8,9 +9,7 @@ Route::get('/', function () {
     return redirect()->route('dashboard');
 });
 
-Route::get('dashboard', function() {
-    return view('dashboard');
-})->name('dashboard')->middleware('auth');
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 
 require_once __DIR__.'/admin.php';
 require_once __DIR__.'/guru.php';

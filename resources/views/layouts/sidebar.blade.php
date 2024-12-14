@@ -1,9 +1,13 @@
 <!-- Sidebar -->
-<nav class="bg-dark text-white p-3" style="width: 250px; height: 100vh;">
+<nav class="bg-dark text-white p-3" style="width: 250px; height: 100%;">
     <ul class="nav flex-column mt-4">
         @if (Auth::user()->role == 'admin')
             @php
                 $menus = [
+                    [
+                        'title' => 'Dashboard',
+                        'url' => 'dashboard',
+                    ],
                     [
                         'title' => 'Pelajaran',
                         'url' => 'admin/pelajaran',

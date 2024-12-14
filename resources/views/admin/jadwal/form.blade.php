@@ -14,7 +14,7 @@
                 <label for="guru" class="form-label">Guru</label>
                 <select @isset($model) disabled @endisset name="id_user" id="guru" class="form-control">
                     @foreach ($guru as $gr)
-                        <option {{ isset($model) ? ($model->id_user == $gr->id ? ' selected' : '') : '' }} value="{{ $gr->id }}">{{ $gr->name }}</option>
+                        <option {{ isset($model) ? ($model->id_user == $gr->id ? ' selected' : '') : '' }} value="{{ isset($model) ? $model->id_user : $gr->id }}">{{ isset($model) ? $model->user->name : $gr->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -38,7 +38,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="date" class="form-label">Kelas</label>
+                <label for="date" class="form-label">Waktu</label>
                 <input type="datetime-local" class="form-control" id="date" name="date" value="{{ isset($model) ? ($model->date ?? old('date')) : old('date') }}">
             </div>
 

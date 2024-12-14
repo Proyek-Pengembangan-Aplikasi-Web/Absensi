@@ -46,16 +46,16 @@
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $sw->name }}</td>
                                                     <td>
-                                                        @if ($sw->absensi->status == 'hadir')
+                                                        @if ($sw->absensi?->where('id_jadwal', $item->id)->where('id_siswa', $sw->id)->first()->status == 'hadir')
                                                             <span class="badge bg-success">
-                                                        @elseif ($sw->absensi->status == 'alpa')
+                                                        @elseif ($sw->absensi?->where('id_jadwal', $item->id)->where('id_siswa', $sw->id)->first()->status == 'alpa')
                                                             <span class="badge bg-danger">
-                                                        @elseif ($sw->absensi->status == 'izin')
+                                                        @elseif ($sw->absensi?->where('id_jadwal', $item->id)->where('id_siswa', $sw->id)->first()->status == 'izin')
                                                             <span class="badge bg-warning">
                                                         @else
                                                             <span class="badge bg-secondary">
                                                         @endif
-                                                            {{ ucfirst($sw->absensi->status ?? 'Belum diabsen') }}</td>
+                                                            {{ ucfirst($sw->absensi?->where('id_jadwal', $item->id)->where('id_siswa', $sw->id)->first()->status ?? 'Belum diabsen') }}</td>
                                                         </span>
                                                     </td>
                                                 </tr>

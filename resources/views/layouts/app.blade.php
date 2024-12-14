@@ -41,12 +41,28 @@
         </div>
     </nav>
 
-    <div class="d-flex">
+    <div class="d-flex" style="height: 100vh;">
         <!-- Sidebar -->
         @include('layouts.sidebar')
 
         <!-- Main Content -->
         <div class="flex-grow-1 p-3">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             @yield('content')
         </div>
     </div>

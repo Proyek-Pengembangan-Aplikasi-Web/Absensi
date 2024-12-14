@@ -67,7 +67,10 @@ class JadwalController extends Controller
     {
         $data['title'] = $this->title;
         $data['model'] = Jadwal::find($id);
+        $data['pelajaran'] = Pelajaran::get();
+        $data['guru'] = User::where('role', 'guru')->get();
         $data['route'] = route($this->route.'update', $id);
+        $data['kelas'] = Kelas::get();
 
         return view($this->view.'.form', $data);
     }
@@ -83,7 +86,6 @@ class JadwalController extends Controller
 
         $validate = $request->validate([
             'id_pelajaran' => 'required',
-            'id_user' => 'required',
             'id_kelas' => 'required',
             'date' => 'required',
         ]);

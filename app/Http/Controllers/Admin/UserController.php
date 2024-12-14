@@ -31,6 +31,7 @@ class UserController extends Controller
     public function create()
     {
         $data['title'] = $this->title;
+        $data['guru'] = User::where('role', 'guru')->get();
         $data['route'] = route($this->route.'store');
 
         return view($this->view.'.form', $data);
@@ -47,7 +48,7 @@ class UserController extends Controller
             'name' => 'required',
             'username' => 'required',
             'role' => 'required|in:admin,guru',
-            'email' => 'required',
+            'email' => 'required|unique:users,email',
         ]);
 
         $validate['password'] = Hash::make('12345678');
@@ -63,6 +64,7 @@ class UserController extends Controller
     public function edit(string $id)
     {
         $data['title'] = $this->title;
+        $data['guru'] = User::where('role', 'guru')->get();
         $data['model'] = User::find($id);
         $data['route'] = route($this->route.'update', $id);
 
